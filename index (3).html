@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>W2-P1 Bootstrap</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/album/">
+    <link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+
+      .b-example-divider {
+        height: 3rem;
+        background-color: rgba(0, 0, 0, .1);
+        border: solid rgba(0, 0, 0, .15);
+        border-width: 1px 0;
+        box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
+      }
+
+      .b-example-vr {
+        flex-shrink: 0;
+        width: 1.5rem;
+        height: 100vh;
+      }
+
+      .bi {
+        vertical-align: -.125em;
+        fill: currentColor;
+      }
+
+      .nav-scroller {
+        position: relative;
+        z-index: 2;
+        height: 2.75rem;
+        overflow-y: hidden;
+      }
+
+      .nav-scroller .nav {
+        display: flex;
+        flex-wrap: nowrap;
+        padding-bottom: 1rem;
+        margin-top: -1px;
+        overflow-x: auto;
+        text-align: center;
+        white-space: nowrap;
+        -webkit-overflow-scrolling: touch;
+      }
+      h2{
+        text-align: center;
+      }
+      #preferiti{
+        background-color: rgb(8, 175, 8);
+        border-radius: 50%;
+      }
+      #odiati{
+        background-color: rgb(255, 0, 0);
+        border-radius: 50%;
+      }
+      #best{
+        background-color: rgb(0, 0, 255);
+        border-radius: 50%;
+        color: white;
+        min-width: 100%;
+      }
+      .best{
+        background-color: rgb(0, 0, 255);
+        color: white;
+      }  
+      .best .center p{
+        color: white;
+      }    
+      .good{
+        background-color: rgba(0, 128, 0, 0.5);
+      }
+      .bad{
+        background-color: rgba(128, 0, 0, 0.5);
+      }          
+      .coverImg{
+        text-align: center;
+        background-color: rgb(0, 0, 0);
+        overflow: hidden;
+        position: relative;
+      }      
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+
+      .b-example-divider {
+        height: 3rem;
+        background-color: rgba(0, 0, 0, .1);
+        border: solid rgba(0, 0, 0, .15);
+        border-width: 1px 0;
+        box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
+      }
+
+      .b-example-vr {
+        flex-shrink: 0;
+        width: 1.5rem;
+        height: 100vh;
+      }
+
+      .bi {
+        vertical-align: -.125em;
+        fill: currentColor;
+      }
+
+      .nav-scroller {
+        position: relative;
+        z-index: 2;
+        height: 2.75rem;
+        overflow-y: hidden;
+      }
+
+      .nav-scroller .nav {
+        display: flex;
+        flex-wrap: nowrap;
+        padding-bottom: 1rem;
+        margin-top: -1px;
+        overflow-x: auto;
+        text-align: center;
+        white-space: nowrap;
+        -webkit-overflow-scrolling: touch;
+      }
+      table tr td:first-child{
+        font-weight: bold;
+      }
+      table tr td:last-child{
+        font-style: italic;
+      }
+      .center{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      .center p{
+        font-size: 0.8rem;
+        font-weight: 300;
+        font-style: italic;
+        color: rgb(25, 25, 124);
+      }
+      .center button{
+        margin-top: 15px;
+      }
+      .play{
+        position: absolute;
+        bottom: 10px;
+        right: 10px;
+        font-size: 0.8rem;
+        padding: 3px 8px;
+      }
+      .col{
+        min-width: 230px;
+      }
+      #mybest{
+        max-width: 500px;
+      }
+      .tracks{
+        color: white;
+      }
+      #albumImg img{
+        height: 100px;
+      }
+    </style>
+
+</head>
+
+<body>
+    <header>
+        <div class="collapse bg-dark" id="navbarHeader">
+          <div class="container">
+            <div class="row">
+              <div class="col-sm-8 col-md-7 py-4">
+                <h4 class="text-white">Jacopo Mora</h4>
+                <p class="text-white">Album preferiti</p>
+              </div>
+              <div class="col-sm-4 offset-md-1 py-4">
+                <h4 class="text-white">Contatti</h4>
+                <ul class="list-unstyled">
+                  <li><a href="#" class="text-white">email:jack82acdc@hotmail.it</a></li>
+                  <li><a href="#" class="text-white">Tel:355789456</a></li>
+                  <li><a href="#" class="text-white">Città: Bergamo</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="navbar navbar-dark bg-dark shadow-sm">
+          <div class="container">
+            <a href="#" class="navbar-brand d-flex align-items-center">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true" class="me-2" viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+              <strong>My Music</strong>
+            </a>
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+          </div>
+        </div>
+      
+        <nav class="navbar navbar-expand navbar-dark bg-dark" aria-label="Second navbar example">
+          <div class="container-fluid">            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample02" aria-controls="navbarsExample02" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+      
+            <div class="collapse navbar-collapse" id="navbarsExample02">
+              <ul class="navbar-nav me-auto">
+                <li class="nav-item">
+                  <a class="nav-link" aria-current="page" href="#preferiti">Preferiti</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#odiati">Odiati</a>
+                </li>
+              </ul>
+              <form role="search">
+                <input class="form-control" type="search" placeholder="Search" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </nav>
+      </header>
+
+
+      <main>      
+        <section class="py-5 text-center container">
+          <div class="row py-lg-5">
+            <div class="col-lg-6 col-md-8 mx-auto">
+              <h1 class="fw-light">Biografia</h1>
+              <p class="lead text-muted">Nato nel 1982 in provincia di Bergamo. amante dell'informatica fin dalle elementari. Diplomato in Elettronica e tutt'ora impiegato nel ramo dell'Automazione Industriale. </p>
+            </div>
+          </div>
+        </section>
+        
+        <div class="album py-5 bg-light">          
+          <div class="container center">  
+            
+                <h2 id="best">THE BEST</h2> 
+                
+            <div id="mybest">
+              <div class="col">
+                <div class="card shadow-sm">
+                  <div class="coverImg">
+                    <img height="225" src="redhot.webp" alt="californication">
+                    <button type="button" class="btn btn-secondary play">Play</button>                                      
+                  </div>
+                  <div class="card-body my-card best">
+                    <table>
+                      <tr>
+                        <td>TITOLO:</td>
+                        <td>Californication</td>
+                      </tr>
+                      <tr>
+                        <td>ARTISTA:</td>
+                        <td>Red Hot Chili Peppers</td>
+                      </tr>
+                      <tr>
+                        <td>GENERE:</td>
+                        <td>Rock</td>
+                      </tr>
+                      <tr>
+                        <td>DURATA:</td>
+                        <td>57min</td>
+                      </tr>
+                    </table>
+                    <hr>
+                    <table class="table tracks">
+                      <thead>
+                        <tr>
+                          <th scope="col">#</th>
+                          <th scope="col">Track</th>
+                          <th scope="col">min</th>                          
+                        </tr>
+                      </thead>
+                      <tbody class="table-group-divider">
+                        <tr>
+                          <th scope="row">1</th>
+                          <td>This Velvet Glove</td>
+                          <td>3:45</td>                          
+                        </tr>
+                        <tr>
+                          <th scope="row">2</th>
+                          <td>Road Trippin'</td>
+                          <td>3:26</td>                          
+                        </tr>
+                        <tr>
+                          <th scope="row">3</th>
+                          <td>Californication</td>
+                          <td>5:22</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">4</th>
+                          <td>Around the World</td>
+                          <td>5:22</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">5</th>
+                          <td>Get On Top</td>
+                          <td>5:22</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">6</th>
+                          <td>Parallel Universe</td>
+                          <td>5:22</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">7</th>
+                          <td>Savior</td>
+                          <td>5:22</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">8</th>
+                          <td>Porcelain</td>
+                          <td>5:22</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">9</th>
+                          <td>Emit Remmus</td>
+                          <td>4:28</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">10</th>
+                          <td>Right On Time</td>
+                          <td>6:31</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">11</th>
+                          <td>Purple Stain</td>
+                          <td>2:42</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">12</th>
+                          <td>Scar Tissue</td>
+                          <td>3:22</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">13</th>
+                          <td>Easily</td>
+                          <td>3:54</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">14</th>
+                          <td>I Like Dirt</td>
+                          <td>2:23</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">15</th>
+                          <td>Otherside</td>
+                          <td>4:22</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    <div class="center">
+                      <p>Lascia un commento...</p>
+                      <textarea style="resize: none;" name="comm" rows="5"></textarea>                      
+                      <button type="button" class="btn btn-secondary">Invia</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>     
+          </div>
+        </div>
+
+
+        <div class="album py-5 bg-light">          
+          <div class="container">  
+            <div class="row">
+                <h2 id="preferiti">Album Preferiti</h2> 
+            </div>    
+            <div class="row row-cols-2 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-3">
+              <div class="col">
+                <div class="card shadow-sm">
+                  <div class="coverImg">
+                    <img height="225" src="greenday.jpg" alt="green day">
+                    <button type="button" class="btn btn-secondary play">Play</button>                                      
+                  </div>
+                  <div class="card-body my-card good">
+                    <table>
+                      <tr>
+                        <td>TITOLO:</td>
+                        <td>American Idiot</td>
+                      </tr>
+                      <tr>
+                        <td>ARTISTA:</td>
+                        <td>Green Day</td>
+                      </tr>
+                      <tr>
+                        <td>GENERE:</td>
+                        <td>Rock</td>
+                      </tr>
+                      <tr>
+                        <td>DURATA:</td>
+                        <td>90min</td>
+                      </tr>
+                    </table>
+                    <hr>
+                    <div class="center">
+                      <p>Lascia un commento...</p>
+                      <textarea style="resize: none;" name="comm" rows="5"></textarea>
+                      <button type="button" class="btn btn-outline-primary">Invia</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col">
+                <div class="card shadow-sm">
+                    <div class="coverImg">
+                      <img height="225" src="bonjovi.jpg" alt="green day">
+                      <button type="button" class="btn btn-secondary play">Play</button> 
+                    </div>                  
+                    <div class="card-body my-card good">
+                      <table>
+                        <tr>
+                          <td>TITOLO:</td>
+                          <td>Bon Jovi</td>
+                        </tr>
+                        <tr>
+                          <td>ARTISTA:</td>
+                          <td>Bon Jovi</td>
+                        </tr>
+                        <tr>
+                          <td>GENERE:</td>
+                          <td>Rock</td>
+                        </tr>
+                        <tr>
+                          <td>DURATA:</td>
+                          <td>70min</td>
+                        </tr>
+                      </table>
+                      <hr>
+                      <div class="center">
+                        <p>Lascia un commento...</p>
+                        <textarea style="resize: none;" name="comm" rows="5"></textarea>
+                        <button type="button" class="btn btn-outline-primary">Invia</button>
+                      </div>
+                    </div>
+                </div>
+              </div>
+              <div class="col">
+                <div class="card shadow-sm">
+                    <div class="coverImg">
+                      <img height="225" src="queen.jpg" alt="green day">
+                      <button type="button" class="btn btn-secondary play">Play</button> 
+                    </div>                  
+                    <div class="card-body my-card good">
+                      <table>
+                        <tr>
+                          <td>TITOLO:</td>
+                          <td>Greatest Hits</td>
+                        </tr>
+                        <tr>
+                          <td>ARTISTA:</td>
+                          <td>Queen</td>
+                        </tr>
+                        <tr>
+                          <td>GENERE:</td>
+                          <td>Rock</td>
+                        </tr>
+                        <tr>
+                          <td>DURATA:</td>
+                          <td>120min</td>
+                        </tr>
+                      </table>
+                      <hr>
+                      <div class="center">
+                        <p>Lascia un commento...</p>
+                        <textarea style="resize: none;" name="comm" rows="5"></textarea>
+                        <button type="button" class="btn btn-outline-primary">Invia</button>
+                      </div>
+                    </div>
+                </div>
+              </div>
+              <div class="col">
+                <div class="card shadow-sm">
+                  <div class="coverImg">
+                    <img height="225" src="greenday.jpg" alt="green day">
+                    <button type="button" class="btn btn-secondary play">Play</button> 
+                  </div>
+                  <div class="card-body my-card good">
+                    <table>
+                      <tr>
+                        <td>TITOLO:</td>
+                        <td>American Idiot</td>
+                      </tr>
+                      <tr>
+                        <td>ARTISTA:</td>
+                        <td>Green Day</td>
+                      </tr>
+                      <tr>
+                        <td>GENERE:</td>
+                        <td>Rock</td>
+                      </tr>
+                      <tr>
+                        <td>DURATA:</td>
+                        <td>90min</td>
+                      </tr>
+                    </table>
+                    <hr>
+                    <div class="center">
+                      <p>Lascia un commento...</p>
+                      <textarea style="resize: none;" name="comm" rows="5"></textarea>
+                      <button type="button" class="btn btn-outline-primary">Invia</button>
+                    </div>
+                  </div>                  
+                </div>
+              </div>
+            </div>     
+          </div>
+        </div>
+
+        <div class="album py-5 bg-light">
+         <div class="container"> 
+            <div class="row ">
+                <h2 id="odiati">Album Odiati</h2> 
+            </div>     
+            <div class="row row-cols-2 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-3">
+              <div class="col">
+                <div class="card shadow-sm">                    
+                    <div class="coverImg">
+                      <img height="225" src="pausini.jpg" alt="green day">
+                      <button type="button" class="btn btn-secondary play">Play</button> 
+                    </div> 
+                    <div class="card-body my-card bad">
+                      <table>
+                        <tr>
+                          <td>TITOLO:</td>
+                          <td>Laura</td>
+                        </tr>
+                        <tr>
+                          <td>ARTISTA:</td>
+                          <td>Laura Pausini</td>
+                        </tr>
+                        <tr>
+                          <td>GENERE:</td>
+                          <td>Pop</td>
+                        </tr>
+                        <tr>
+                          <td>DURATA:</td>
+                          <td>80min</td>
+                        </tr>
+                      </table>
+                      <hr>
+                      <div class="center">
+                        <p>Lascia un commento...</p>
+                        <textarea style="resize: none;" name="comm" rows="5"></textarea>
+                        <button type="button" class="btn btn-outline-primary">Invia</button>
+                      </div>
+                    </div>
+                </div>
+              </div>
+              <div class="col">
+                <div class="card shadow-sm">                    
+                    <div class="coverImg">
+                      <img height="225" src="pausini2.jpg" alt="green day">
+                      <button type="button" class="btn btn-secondary play">Play</button> 
+                    </div> 
+                    <div class="card-body my-card bad">
+                      <table>
+                        <tr>
+                          <td>TITOLO:</td>
+                          <td>Laura Pausini</td>
+                        </tr>
+                        <tr>
+                          <td>ARTISTA:</td>
+                          <td>Laura Pausini</td>
+                        </tr>
+                        <tr>
+                          <td>GENERE:</td>
+                          <td>Pop</td>
+                        </tr>
+                        <tr>
+                          <td>DURATA:</td>
+                          <td>100min</td>
+                        </tr>
+                      </table>   
+                      <hr>
+                      <div class="center">
+                        <p>Lascia un commento...</p>
+                        <textarea style="resize: none;" name="comm" rows="5"></textarea>
+                        <button type="button" class="btn btn-outline-primary">Invia</button>
+                      </div>                   
+                    </div>
+                </div>
+              </div>
+              <div class="col">
+                <div class="card shadow-sm">                    
+                    <div class="coverImg">
+                      <img height="225" src="pausini3.jpg" alt="green day">
+                      <button type="button" class="btn btn-secondary play">Play</button> 
+                    </div> 
+                    <div class="card-body my-card bad">
+                      <table>
+                        <tr>
+                          <td>TITOLO:</td>
+                          <td>Simili</td>
+                        </tr>
+                        <tr>
+                          <td>ARTISTA:</td>
+                          <td>Laura Pausini</td>
+                        </tr>
+                        <tr>
+                          <td>GENERE:</td>
+                          <td>Pop</td>
+                        </tr>
+                        <tr>
+                          <td>DURATA:</td>
+                          <td>110min</td>
+                        </tr>
+                      </table>
+                      <hr>
+                      <div class="center">
+                        <p>Lascia un commento...</p>
+                        <textarea style="resize: none;" name="comm" rows="5"></textarea>
+                        <button type="button" class="btn btn-outline-primary">Invia</button>
+                      </div>
+                    </div>
+                </div>
+              </div>
+              <div class="col">
+                <div class="card shadow-sm">                    
+                    <div class="coverImg">
+                      <img height="225" src="pausini2.jpg" alt="green day">
+                      <button type="button" class="btn btn-secondary play">Play</button> 
+                    </div> 
+                    <div class="card-body my-card bad">
+                      <table>
+                        <tr>
+                          <td>TITOLO:</td>
+                          <td>Laura Pausini</td>
+                        </tr>
+                        <tr>
+                          <td>ARTISTA:</td>
+                          <td>Laura Pausini</td>
+                        </tr>
+                        <tr>
+                          <td>GENERE:</td>
+                          <td>Pop</td>
+                        </tr>
+                        <tr>
+                          <td>DURATA:</td>
+                          <td>100min</td>
+                        </tr>
+                      </table>
+                      <hr>
+                      <div class="center">
+                        <p>Lascia un commento...</p>
+                        <textarea style="resize: none;" name="comm" rows="5"></textarea>
+                        <button type="button" class="btn btn-outline-primary">Invia</button>
+                      </div>
+                    </div>
+                </div>
+              </div>     
+            </div>
+         </div>
+       </div>
+
+       <section class="py-5 text-center container">
+        <div class="row py-lg-5">
+          <div class="col center">
+            <h2 class="fw-light">COPERTINE</h2>
+            <table id="albumImg">
+              <tr>
+                <td><img src="./20album/01.jpg" alt="album cover"></td>
+                <td><img src="./20album/02.jpg" alt="album cover"></td>
+                <td><img src="./20album/03.jpg" alt="album cover"></td>
+                <td><img src="./20album/04.jpg" alt="album cover"></td>
+                <td><img src="./20album/05.jpg" alt="album cover"></td>
+              </tr>
+              <tr>
+                <td><img src="./20album/06.jpg" alt="album cover"></td>
+                <td><img src="./20album/07.jpg" alt="album cover"></td>
+                <td><img src="./20album/08.jpg" alt="album cover"></td>
+                <td><img src="./20album/09.jpg" alt="album cover"></td>
+                <td><img src="./20album/10.jpg" alt="album cover"></td>
+              </tr>
+              <tr>
+                <td><img src="./20album/11.jpg" alt="album cover"></td>
+                <td><img src="./20album/12.jpg" alt="album cover"></td>
+                <td><img src="./20album/13.jpg" alt="album cover"></td>
+                <td><img src="./20album/08.jpg" alt="album cover"></td>
+                <td><img src="./20album/15.jpg" alt="album cover"></td>
+              </tr>
+              <tr>
+                <td><img src="./20album/16.jpg" alt="album cover"></td>
+                <td><img src="./20album/17.jpg" alt="album cover"></td>
+                <td><img src="./20album/18.jpg" alt="album cover"></td>
+                <td><img src="./20album/19.jpg" alt="album cover"></td>
+                <td><img src="./20album/20.jpg" alt="album cover"></td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      
+      </main>
+      
+      <footer class="text-muted py-5">
+        <div class="container">
+          <p class="float-end mb-1">
+            <a href="#">Back to top</a>
+          </p>
+          <p class="mb-1">Album example is &copy; Bootstrap, but please download and customize it for yourself!</p>
+          <p class="mb-0">New to Bootstrap? <a href="/">Visit the homepage</a> or read our <a href="../getting-started/introduction/">getting started guide</a>.</p>
+        </div>
+      </footer>
+      
+      
+    <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+</body>
+</html>
